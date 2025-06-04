@@ -1,10 +1,16 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
+  imports = [ ./modules/default.nix ];
+  modules = {
+    hyprland.enable = true;
+  };
+
   home = {
     packages = with pkgs; [
       hello
       firefox
       thefuck
+      vscode
     ];
 
     username = "davidemarcoli";
@@ -13,10 +19,20 @@
     stateVersion = "25.05";
   };
 
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "vscode"
+    ];
+
   programs.git = {
     enable = true;
     userName = "davidemarcoli";
     userEmail = "davide@marcoli.ch";
+    extraConfig = {
+      gpg.format = "ssh";
+      push.autoSetupRemote = true;
+      user.signingkey = "~/.ssh/id_github";
+    };
   };
 
   programs.zsh = {
@@ -38,4 +54,24 @@
       theme = "robbyrussell";
     };
   };
+
+  programs.ssh = {
+    enable = true;
+    matchBlocks = {
+      "github.com" = {
+        hostname = "github.com";
+        identityFile = "~/.ssh/id_github";
+      };
+    };
+  };
+
+  #services.openssh = {
+  #  enable = true;
+  #  extraConfig = ''
+  #    Host github.com
+  #      HostName github.com
+  #      PreferredAuthentication publickey
+  #      IdentityFile ~/.ssh/id_github
+  #  '';
+  #};
 }
