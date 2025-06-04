@@ -8,7 +8,8 @@ in {
     home.packages = with pkgs; [
       wofi wl-clipboard hyprland
     ];
-    xdg.configFile."hypr/hyprland.conf".source = "./hyprland.conf";
+    #xdg.configFile."hypr/hyprland.conf".source = "./hyprland.conf";
+    xdg.configFile."hypr/hyprland.conf".text = builtins.readFile ./hyprland.conf;
     #home.file.".config/hypr/hyprland.conf".source = "./hyprland.conf";
   };
 }
