@@ -72,6 +72,9 @@
   # Experimental Features
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # VM specific
+  virtualisation.virtualbox.guest.enable = true;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
