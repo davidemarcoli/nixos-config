@@ -5,7 +5,6 @@
   services.xserver.desktopManager.xterm.enable = false;
 
   programs.zsh.enable = true;
-  programs.neovim.enable = true; # REMOVE
 
   environment.systemPackages = with pkgs; [
     git
@@ -94,6 +93,10 @@
       allowedUDPPorts = [ 443 80 44857 ]; # TODO: check that
       allowPing = false;
     };
+  };
+
+  environment.variables = {
+    NIXOS_CONFIG_DIR = "$HOME/.config/nixos";
   };
 
   security = {

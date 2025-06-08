@@ -6,5 +6,6 @@
     ./hyprland
     ./zsh
     ./git
+    ./nvim
   ];
 }
